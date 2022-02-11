@@ -47,8 +47,15 @@ export class NegociacaoController {
 
     public importaDados(): void
     { 
-        this.negociacoesServices.obterNegociacoesDoDia()
+        this.negociacoesServices
+            .obterNegociacoesDoDia()
             .then (negoiacoesHoje => {
+                return negoiacoesHoje.filter(negoiacoesHoje => {
+                    return !this.negociacoes.lista()
+                    .some(negocicao => negocicao.ehIgual(negoiacoesHoje));
+                });
+                })
+                .then (negoiacoesHoje => {
                 for(let negociacao of negoiacoesHoje){
                     this.negociacoes.adiciona(negociacao);
                 };

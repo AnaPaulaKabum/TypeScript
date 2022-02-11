@@ -1,8 +1,8 @@
+import { Comparavel } from "../interfaces/comparavel.js";
 import { Imprivel } from "../utils/imprimivel.js";
 import { Negociacao } from "./negociacao.js";
 
-export class Negociacoes implements Imprivel
-{
+export class Negociacoes implements Imprivel,Comparavel<Negociacoes>{
     private negociacoes: Array<Negociacao> = [];
     //private negociacoes: Negociacao[] = [];
 
@@ -18,5 +18,10 @@ export class Negociacoes implements Imprivel
 
     public paraTexto(): string {
         return JSON.stringify(this.negociacoes,null,2);
+    }
+
+    ehIgual(objeto: Negociacoes): boolean {
+        
+        return JSON.stringify(this.negociacoes) === JSON.stringify (objeto.negociacoes);
     }
 }

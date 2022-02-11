@@ -1,6 +1,7 @@
+import { Comparavel } from "../interfaces/comparavel.js";
 import { Imprivel } from "../utils/imprimivel.js";
 
-export class Negociacao implements Imprivel{
+export class Negociacao implements Imprivel, Comparavel<Negociacao>{
 
     //definir valores apenas no consctructor.
     constructor(
@@ -37,5 +38,10 @@ export class Negociacao implements Imprivel{
                 valor ${this.valor} `
     }
 
+    public ehIgual(negociacao: Negociacao): boolean{
 
+        return this.data.getDate() === negociacao.data.getDate() 
+               && this.data.getDay() === negociacao.data.getDay() 
+               && this.data.getFullYear() === negociacao.data.getFullYear();
+    }
 }
