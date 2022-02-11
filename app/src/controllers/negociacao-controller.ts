@@ -7,6 +7,7 @@ import { DiasDaSemana } from '../enums/dias-da-semana.js';
 import { logarTempoDeExecucao } from '../decorators/logar-tempo-de-execucao.js';
 import { inspect } from '../decorators/inspect.js';
 import { domInjector } from '../decorators/dom-injector.js';
+import { NegociacoesDoDia } from '../interfaces/negociacao-do-dia.js';
 
 export class NegociacaoController {
     
@@ -47,14 +48,13 @@ export class NegociacaoController {
     {
         fetch('http://localhost:8080/dados')
         .then(res => res.json())
-        .then((dados: Array<any>) => {
+        .then((dados: Array<NegociacoesDoDia>) => {
             return dados.map(dadosDeHoje => {
                 return new Negociacao ( new Date(),
                 dadosDeHoje.vezes,
                 dadosDeHoje.montante
             )
             })
-            
         }).then (negoiacoesHoje => {
             for(let negociacao of negoiacoesHoje){
                 this.negociacoes.adiciona(negociacao);
