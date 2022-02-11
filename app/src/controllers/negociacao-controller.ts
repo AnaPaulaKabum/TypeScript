@@ -24,8 +24,8 @@ export class NegociacaoController {
         this.negociacoesView.update(this.negociacoes);
     }
 
-    @logarTempoDeExecucao()
-    @inspect()
+    //@logarTempoDeExecucao()
+    //@inspect()
     public adiciona(): void {  
      
         const negociacao = Negociacao.criaDe(this.inputData.value,
@@ -43,9 +43,24 @@ export class NegociacaoController {
         this.atualizaView();
     }
 
-    importaDados()
+    public importaDados(): void
     {
-        alert('oi');
+        fetch('http://localhost:8080/dados')
+        .then(res => res.json())
+        .then((dados: Array<any>) => {
+            return dados.map(dadosDeHoje => {
+                return new Negociacao ( new Date(),
+                dadosDeHoje.vezes,
+                dadosDeHoje.montante
+            )
+            })
+            
+        }).then (negoiacoesHoje => {
+            for(let negociacao of negoiacoesHoje){
+                this.negociacoes.adiciona(negociacao);
+            }
+            this.negociacoesView.update(this.negociacoes);
+        });
     }
     
     private ehDiaUtil(data:Date)
