@@ -1,11 +1,14 @@
-export class Negociacao{
+import { Imprivel } from "../utils/imprimivel.js";
+
+export class Negociacao implements Imprivel{
 
     //definir valores apenas no consctructor.
     constructor(
             private _data: Date,
             public readonly quantidade:number,
             public readonly valor:number)
-    {}
+    {
+    }
 
     get volume() :number{
 
@@ -24,6 +27,14 @@ export class Negociacao{
         const quantidade = parseInt(quantidadeString);
         const valor = parseFloat(valorString);
         return new Negociacao(date, quantidade, valor);
+    }
+
+    public paraTexto(): string {
+        
+        return `
+                Data: ${this.data},
+                Quantidade ${this.quantidade},
+                valor ${this.valor} `
     }
 
 

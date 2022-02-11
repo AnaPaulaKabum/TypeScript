@@ -1,6 +1,7 @@
+import { Imprivel } from "../utils/imprimivel.js";
 import { Negociacao } from "./negociacao.js";
 
-export class Negociacoes
+export class Negociacoes implements Imprivel
 {
     private negociacoes: Array<Negociacao> = [];
     //private negociacoes: Negociacao[] = [];
@@ -13,5 +14,9 @@ export class Negociacoes
     public lista ():  ReadonlyArray<Negociacao>
     {
         return this.negociacoes; 
+    }
+
+    public paraTexto(): string {
+        return JSON.stringify(this.negociacoes,null,2);
     }
 }
